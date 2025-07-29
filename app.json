@@ -1,29 +1,39 @@
 {
   "expo": {
-    "name": "MyApp",
-    "slug": "MyApp",
+    "name": "Smartup",
+    "slug": "smartup_lms_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appIcon/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splashscreen/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/appIcon/icon.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.codeforge0.smartup_lms_app",
+      "permissions": [
+        "DETECT_SCREEN_CAPTURE"
+      ],
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favIcon/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "32424916-129e-4fdb-874e-f3bcc59f4c8f"
+      }
     }
   }
 }
