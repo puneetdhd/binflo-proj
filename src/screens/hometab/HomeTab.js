@@ -16,6 +16,7 @@ import {
   popularCoursesAllTab,
   processCarousalTab,
 } from "../../utils/mockData";
+import { Video } from 'expo-av';
 import useGlobalStyles from "../../styles/globalStyles";
 import CategoryCarousel from "../../components/categorycarousal/CategoryCarousal";
 import PopularCourseAllTabCarousal from "../../components/popularcoursesAllTabCarousal/PopularCourseAllTabCarousal";
@@ -67,7 +68,16 @@ const HomeTab = () => {
         <View>
           {/* You can create a slider carousel here if needed */}
           <View style={{ height: 200, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', margin: 20 }}>
-            <Text>Slider Placeholder</Text>
+                  <Video
+        source={require('../../../assets/videos/autotheorie1.mp4')}
+        style={styles.video}
+        resizeMode="cover"
+        shouldPlay={true}
+        isLooping={true}
+        isMuted={true}
+        useNativeControls={false}
+      />
+
           </View>
         </View>
         <View style={styles.headAndBTN}>
@@ -189,6 +199,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 2,
     paddingHorizontal: 15,
+  },
+    video: {
+    width: '100%',
+    height: '100%',
   },
 });
 
