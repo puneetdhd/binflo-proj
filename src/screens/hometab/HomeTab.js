@@ -24,14 +24,102 @@ import ProcessCarousal from "../../components/processcarousal/ProcessCarousal";
 import { useNavigation } from "@react-navigation/native";
 import MentorCarousal from "../../components/mentorcarousal/MentorCarousal";
 
+// Bottom Tab Navigation Component
+const BottomTabNavigation = ({ activeTab, onTabPress }) => {
+  const tabs = [
+    {
+      id: 'home',
+      name: 'Home',
+      icon: '🏠',
+    },
+    {
+      id: 'courses',
+      name: 'Courses',
+      icon: '📚',
+    },
+    {
+      id: 'search',
+      name: 'Search',
+      icon: '🔍',
+    },
+    {
+      id: 'favorites',
+      name: 'Favorites',
+      icon: '❤️',
+    },
+    {
+      id: 'profile',
+      name: 'Profile',
+      icon: '👤',
+    },
+  ];
+
+  return (
+    <View style={styles.bottomTabContainer}>
+      {tabs.map((tab) => (
+        <TouchableOpacity
+          key={tab.id}
+          style={styles.tabItem}
+          onPress={() => onTabPress(tab.id)}
+        >
+          <Text
+            style={[
+              styles.tabIcon,
+              activeTab === tab.id && styles.activeTabIcon
+            ]}
+          >
+            {tab.icon}
+          </Text>
+          <Text
+            style={[
+              styles.tabLabel,
+              activeTab === tab.id && styles.activeTabLabel
+            ]}
+          >
+            {tab.name}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+};
+
 const HomeTab = () => {
   const [popularCourseTab, setPopularCourseTab] = useState("All");
+  const [activeBottomTab, setActiveBottomTab] = useState("home");
   const globalStyles = useGlobalStyles();
 
   const navigation = useNavigation();
 
   const handleTab = (item) => {
     setPopularCourseTab(item);
+  };
+
+  const handleBottomTabPress = (tabId) => {
+    setActiveBottomTab(tabId);
+    
+    // Navigate to different screens based on tab selection
+    switch (tabId) {
+      case 'home':
+        // Already on home, maybe scroll to top
+        break;
+      case 'courses':
+        navigation.navigate("popularcourses");
+        break;
+      case 'search':
+        // Navigate to search screen
+        // navigation.navigate("search");
+        break;
+      case 'favorites':
+        // Navigate to favorites screen
+        // navigation.navigate("favorites");
+        break;
+      case 'profile':
+        navigation.navigate("profile");
+        break;
+      default:
+        break;
+    }
   };
 
   const renderPopularCourseTabs = () => {
@@ -44,7 +132,7 @@ const HomeTab = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.profileHeader}>
         <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
           <TouchableOpacity onPress={() => navigation.navigate("profile")}>
@@ -64,20 +152,19 @@ const HomeTab = () => {
         </View>
       </View>
 
-      <ScrollView style={{ marginBottom: "18%" }}>
+      <ScrollView style={styles.scrollContent}>
         <View>
           {/* You can create a slider carousel here if needed */}
           <View style={{ height: 200, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', margin: 20 }}>
-                  <Video
-        source={require('../../../assets/videos/autotheorie1.mp4')}
-        style={styles.video}
-        resizeMode="cover"
-        shouldPlay={true}
-        isLooping={true}
-        isMuted={true}
-        useNativeControls={false}
-      />
-
+            <Video
+              source={require('../../../assets/videos/autotheorie1.mp4')}
+              style={styles.video}
+              resizeMode="cover"
+              shouldPlay={true}
+              isLooping={true}
+              isMuted={true}
+              useNativeControls={false}
+            />
           </View>
         </View>
         <View style={styles.headAndBTN}>
@@ -157,11 +244,23 @@ const HomeTab = () => {
           <MentorCarousal data={mentorsData} />
         </View>
       </ScrollView>
-    </>
+
+      <BottomTabNavigation 
+        activeTab={activeBottomTab} 
+        onTabPress={handleBottomTabPress} 
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    flex: 1,
+    marginBottom: 80, // Space for bottom tab navigation
+  },
   profileHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -200,9 +299,53 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 15,
   },
-    video: {
+  video: {
     width: '100%',
     height: '100%',
+  },
+  // Bottom Tab Navigation Styles
+  bottomTabContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    backgroundColor: '#ffffff',
+    paddingVertical: 10,
+    paddingBottom: 20, // Extra padding for iOS safe area
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 5,
+  },
+  tabIcon: {
+    fontSize: 20,
+    marginBottom: 4,
+    opacity: 0.6,
+  },
+  activeTabIcon: {
+    opacity: 1,
+  },
+  tabLabel: {
+    fontSize: 12,
+    color: '#666',
+    fontWeight: '400',
+  },
+  activeTabLabel: {
+    color: '#FC4F72',
+    fontWeight: '600',
   },
 });
 
