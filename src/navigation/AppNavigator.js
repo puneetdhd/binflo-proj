@@ -33,7 +33,7 @@ import TermsNConditions from "../screens/terms&conditions/TermsNConditions";
 import InviteFriends from "../screens/invitefriends/InviteFriends";
 import DarkMode from "../screens/darkmode/DarkMode";
 import HomeTab from "../screens/hometab/HomeTab";
-
+import Contact from "../screens/contact/Contact";
 const AppNavigator = () => {
   const Stack = createNativeStackNavigator();
 
@@ -69,6 +69,8 @@ const AppNavigator = () => {
         name="certificatedownload"
         component={CertificateDownload}
       />
+      <Stack.Screen name="contact" component={Contact} />
+
       <Stack.Screen name="profile" component={Profile} />
       <Stack.Screen name="language" component={LanguageScreen} />
       <Stack.Screen name="addcard" component={AddNewCard} />

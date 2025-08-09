@@ -43,8 +43,8 @@ const BottomTabNavigation = ({ activeTab, onTabPress }) => {
       icon: '🔍',
     },
     {
-      id: 'favorites',
-      name: 'Favorites',
+      id: 'contact',
+      name: 'Contact',
       icon: '❤️',
     },
     {
@@ -110,9 +110,9 @@ const HomeTab = () => {
         // Navigate to search screen
         // navigation.navigate("search");
         break;
-      case 'favorites':
+      case 'contact':
         // Navigate to favorites screen
-        // navigation.navigate("favorites");
+        navigation.navigate("contact");
         break;
       case 'profile':
         navigation.navigate("profile");
