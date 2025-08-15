@@ -185,9 +185,9 @@ const HomeTab = () => {
             <TouchableOpacity
               onPress={() => navigation.navigate("popularcourses")}
             >
-              <View style={globalStyles.miniButton}>
+              {/* <View style={globalStyles.miniButton}>
                 <Text style={globalStyles.miniButtonText}>View all</Text>
-              </View>
+              </View> */}
             </TouchableOpacity>
           </View>
           <View
