@@ -30,6 +30,7 @@ import Profile from "../screens/profile/Profile";
 import LanguageScreen from "../screens/language/LanguageScreen";
 import AddNewCard from "../screens/addnewcard/AddNewCard";
 import TermsNConditions from "../screens/terms&conditions/TermsNConditions";
+import RegisterScreen from "../screens/register/Register";
 import InviteFriends from "../screens/invitefriends/InviteFriends";
 import DarkMode from "../screens/darkmode/DarkMode";
 import HomeTab from "../screens/hometab/HomeTab";
@@ -42,6 +43,8 @@ const AppNavigator = () => {
       <Stack.Screen name="onboarding" component={OnboardingScreen} />
       <Stack.Screen name="signup" component={SignUpScreen} />
       <Stack.Screen name="signin" component={SignIn} />
+      <Stack.Screen name="register" component={RegisterScreen} />
+
      <Stack.Screen name="letssignUp" component={LetsSingup} />
       <Stack.Screen name="fillprofile" component={FillProfile} />
       <Stack.Screen name="home" component={HomeTab} />

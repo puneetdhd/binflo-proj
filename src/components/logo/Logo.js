@@ -1,18 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import LogoIcon from "../../assets/svg/logo.svg";
 import useGlobalStyles from "../../styles/globalStyles";
 
 const Logo = () => {
   const globalStyles = useGlobalStyles();
   return (
     <View style={globalStyles.mainLogo}>
-      <LogoIcon />
-      <Text style={globalStyles.headingFour}>Smartup</Text>
+      <Text style={styles.head}>SaitCBR.nl</Text>
     </View>
   );
 };
 
 export default Logo;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  head:{
+    color: '#2fa75f',
+    fontSize: 40,
+    fontWeight: 'bold',
+  }
+});

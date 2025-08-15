@@ -20,30 +20,27 @@ const SignUpScreen = () => {
         <View style={styles.childContents}>
           <Text style={globalStyles.headingOne}>Let's Get In</Text>
           <View style={{ paddingVertical: "8%", gap: 20 }}>
-            {signInData.map((item) => (
-              <TouchableOpacity style={styles.signinBTNS} key={item.id}>
-                {item.icon}
-                <Text style={{ color: theme.color }}>{item.title}</Text>
-              </TouchableOpacity>
-            ))}
+
           </View>
-          <Text
-            style={[
-              globalStyles.headingFour,
-              { textAlign: "center", marginBottom: "10%" },
-            ]}
-          >
-            (Or)
-          </Text>
+          <View style={{ gap: 15 }}>
+          <CommonButton
+            label="Sign Up"
+            onPress={() => navigation.navigate("register")}
+          />
+
           <CommonButton
             label="Sign In with Your Account"
             onPress={() => navigation.navigate("signin")}
+            style={{ marginTop: 12 }}   // <-- add spacing here
           />
+          </View>
+
           <View style={[styles.register, globalStyles.absoluteContents]}>
             <Text style={{ textAlign: "center", color: theme.color }}>
-              Don’t have an Account?{" "}
+              Don’t have an Account? {" "}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity 
+            onPress={() => navigation.navigate("register")}>
               <Text style={[globalStyles.yellowText, { fontWeight: "500" }]}>
                 SIGN UP
               </Text>

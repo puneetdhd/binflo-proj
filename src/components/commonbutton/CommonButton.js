@@ -6,11 +6,11 @@ const CommonButton = ({ bgColor, label, color, onPress }) => {
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: bgColor ? bgColor : "#FC4F72" },
+        { backgroundColor: bgColor ? bgColor : "#E2FF70" },
       ]}
       onPress={onPress}
     >
-      <Text style={[ styles.label, { color: color ? color : "white" }]}>{label}</Text>
+      <Text style={[ styles.label, { color: color ? color : "black" }]}>{label}</Text>
     </TouchableOpacity>
   );
 };
