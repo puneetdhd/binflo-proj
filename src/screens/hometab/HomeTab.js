@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView,
 } from "react-native";
 import {
   homeSliderData,
@@ -132,128 +133,135 @@ const HomeTab = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.profileHeader}>
-        <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("profile")}>
-            <Image source={require("../../assets/images/profileIcon.png")} />
-          </TouchableOpacity>
-          <View style={{ gap: 10 }}>
-            <Text style={globalStyles.headingFour}>Johnny Cage</Text>
-            <View style={[globalStyles.miniButton, { width: "70%" }]}>
-              <Text style={globalStyles.miniButtonText}>Learner</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.headerIcons}>
-          {hometabPorfileHeader.map((item) => (
-            <TouchableOpacity key={item.id}>{item.icon}</TouchableOpacity>
-          ))}
-        </View>
-      </View>
-
-      <ScrollView style={styles.scrollContent}>
-        <View>
-          {/* You can create a slider carousel here if needed */}
-          <View style={{ height: 200, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', margin: 20 }}>
-            <Video
-              source={require('../../../assets/videos/autotheorie1.mp4')}
-              style={styles.video}
-              resizeMode="cover"
-              shouldPlay={true}
-              isLooping={true}
-              isMuted={true}
-              useNativeControls={false}
-            />
-          </View>
-        </View>
-        <View style={styles.headAndBTN}>
-          <Text style={globalStyles.headingFour}>Categories</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("categories")}>
-            <View style={globalStyles.miniButton}>
-              <Text style={globalStyles.miniButtonText}>View all</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginVertical: "5%", marginBottom: "7%" }}>
-          <CategoryCarousel data={homeTabCategories} />
-        </View>
-        <View style={styles.headAndBTN}>
-          <Text style={globalStyles.headingFour}>Popular Courses</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("popularcourses")}
-          >
-            <View style={globalStyles.miniButton}>
-              <Text style={globalStyles.miniButtonText}>View all</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: "90%",
-            alignSelf: "center",
-            marginVertical: "5%",
-          }}
-        >
-          {popularCategoriesTab.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() => handleTab(item.title)}
-            >
-              <Text
-                style={
-                  popularCourseTab === item.title
-                    ? styles.actveTab
-                    : styles.inactiveTab
-                }
-              >
-                {item.title}
-              </Text>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <View style={styles.container}>
+        <View style={styles.profileHeader}>
+          <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("profile")}>
+              <Image source={require("../../assets/images/profileIcon.png")} />
             </TouchableOpacity>
-          ))}
-        </View>
-        {renderPopularCourseTabs()}
-        <View style={[styles.headAndBTN, { marginTop: "5%" }]}>
-          <Text style={globalStyles.headingFour}>In process</Text>
-          <TouchableOpacity>
-            <View style={globalStyles.miniButton}>
-              <Text style={globalStyles.miniButtonText}>View all</Text>
+            <View style={{ gap: 10 }}>
+              <Text style={globalStyles.headingFour}>Johnny Cage</Text>
+              <View style={[globalStyles.miniButton, { width: "70%" }]}>
+                <Text style={globalStyles.miniButtonText}>Learner</Text>
+              </View>
             </View>
-          </TouchableOpacity>
+          </View>
+          <View style={styles.headerIcons}>
+            {hometabPorfileHeader.map((item) => (
+              <TouchableOpacity key={item.id}>{item.icon}</TouchableOpacity>
+            ))}
+          </View>
         </View>
-        <View>
-          <ProcessCarousal data={processCarousalTab} />
-        </View>
-        <View>
-          <ProcessCarousal data={processCarousalTab} />
-        </View>
-        <View>
-          <ProcessCarousal data={processCarousalTab} />
-        </View>
-        <View style={[styles.headAndBTN, { marginTop: "5%" }]}>
-          <Text style={globalStyles.headingFour}>Top Mentors</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("topmentors")}>
-            <View style={globalStyles.miniButton}>
-              <Text style={globalStyles.miniButtonText}>See all</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginVertical: "5%", marginBottom: "7%" }}>
-          <MentorCarousal data={mentorsData} />
-        </View>
-      </ScrollView>
 
-      <BottomTabNavigation 
-        activeTab={activeBottomTab} 
-        onTabPress={handleBottomTabPress} 
-      />
-    </View>
+        <ScrollView style={styles.scrollContent}>
+          <View>
+            {/* You can create a slider carousel here if needed */}
+            <View style={{ height: 200, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', margin: 20 }}>
+              <Video
+                source={require('../../../assets/videos/autotheorie1.mp4')}
+                style={styles.video}
+                resizeMode="cover"
+                shouldPlay={true}
+                isLooping={true}
+                isMuted={true}
+                useNativeControls={false}
+              />
+            </View>
+          </View>
+          <View style={styles.headAndBTN}>
+            <Text style={globalStyles.headingFour}>Categories</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("categories")}>
+              <View style={globalStyles.miniButton}>
+                <Text style={globalStyles.miniButtonText}>View all</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: "5%", marginBottom: "7%" }}>
+            <CategoryCarousel data={homeTabCategories} />
+          </View>
+          <View style={styles.headAndBTN}>
+            <Text style={globalStyles.headingFour}>Popular Courses</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("popularcourses")}
+            >
+              <View style={globalStyles.miniButton}>
+                <Text style={globalStyles.miniButtonText}>View all</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "90%",
+              alignSelf: "center",
+              marginVertical: "5%",
+            }}
+          >
+            {popularCategoriesTab.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => handleTab(item.title)}
+              >
+                <Text
+                  style={
+                    popularCourseTab === item.title
+                      ? styles.actveTab
+                      : styles.inactiveTab
+                  }
+                >
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {renderPopularCourseTabs()}
+          <View style={[styles.headAndBTN, { marginTop: "5%" }]}>
+            <Text style={globalStyles.headingFour}>In process</Text>
+            <TouchableOpacity>
+              <View style={globalStyles.miniButton}>
+                <Text style={globalStyles.miniButtonText}>View all</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <ProcessCarousal data={processCarousalTab} />
+          </View>
+          <View>
+            <ProcessCarousal data={processCarousalTab} />
+          </View>
+          <View>
+            <ProcessCarousal data={processCarousalTab} />
+          </View>
+          <View style={[styles.headAndBTN, { marginTop: "5%" }]}>
+            <Text style={globalStyles.headingFour}>Top Mentors</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("topmentors")}>
+              <View style={globalStyles.miniButton}>
+                <Text style={globalStyles.miniButtonText}>See all</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: "5%", marginBottom: "7%" }}>
+            <MentorCarousal data={mentorsData} />
+          </View>
+        </ScrollView>
+
+        <BottomTabNavigation 
+          activeTab={activeBottomTab} 
+          onTabPress={handleBottomTabPress} 
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+    backgroundColor: '#ffffff', // Match your app's background color
+    paddingTop: 20, // Extra padding from the notch/status bar
+  },
   container: {
     flex: 1,
   },

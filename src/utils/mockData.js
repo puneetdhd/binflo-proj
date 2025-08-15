@@ -134,9 +134,9 @@ export const homeTabCategories = [
 ];
 
 export const popularCategoriesTab = [
-  { id: 1, title: "All" },
-  { id: 2, title: "Graphic Design" },
-  { id: 3, title: "3D Design" },
+  { id: 1, title: "Dutch Car Theory" },
+  { id: 2, title: "Boating Licence 1 Theory" },
+  { id: 3, title: "Motor Theory" },
   { id: 4, title: "Art" },
 ];
 
