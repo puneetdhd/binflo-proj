@@ -266,6 +266,9 @@ const SignIn = () => {
       <View style={styles.contents}>
         <Logo />
 
+          <View style={styles.spacer} />
+        
+
         <View style={styles.childContents}>
           <Text style={globalStyles.headingOne}>Sign In</Text>
           <Text style={globalStyles.paragraph}>
@@ -454,7 +457,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   spacer: {
-    height: 60, 
+    height: 40, 
   },
   icons: {
     flexDirection: "row",
