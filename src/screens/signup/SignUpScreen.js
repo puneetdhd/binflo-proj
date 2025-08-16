@@ -29,7 +29,7 @@ const SignUpScreen = () => {
           />
 
           <CommonButton
-            label="Sign In with Your Account"
+            label="Sign In"
             onPress={() => navigation.navigate("signin")}
             style={{ marginTop: 12 }}   // <-- add spacing here
           />
