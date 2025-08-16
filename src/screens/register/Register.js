@@ -93,6 +93,9 @@ const RegisterScreen = () => {
       <View style={styles.contents} >
         <Logo />
         
+        {/* Added spacing container */}
+        <View style={styles.spacer} />
+        
         <View style={styles.childContents}>
           <Text style={globalStyles.headingOne}>Create Account</Text>
           <Text style={globalStyles.paragraph}>
@@ -259,13 +262,18 @@ const styles = StyleSheet.create({
   contents: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 80,
+    paddingTop: 60, // Reduced from 80
     paddingBottom: 60,
     paddingHorizontal: 20,
-    margin: 50,
+    marginHorizontal: 50, // Only horizontal margin
+    marginBottom: 50,     // Bottom margin only
   },
   childContents: {
     width: "100%",
+  },
+  // Added spacer style
+  spacer: {
+    height: 60, // Adjust this value to increase/decrease space
   },
   formContainer: {
     marginTop: 30,
