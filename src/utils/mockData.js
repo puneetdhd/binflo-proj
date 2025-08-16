@@ -133,12 +133,6 @@ export const homeTabCategories = [
   { id: 5, title: "Java", image: require("../assets/images/javaIMG.png") },
 ];
 
-export const popularCategoriesTab = [
-  { id: 1, title: "Dutch Car Theory" },
-  { id: 2, title: "Boating Licence 1 Theory" },
-  { id: 3, title: "Motor Theory" },
-  { id: 4, title: "Art" },
-];
 
 export const popularCoursesAllTab = [
   {

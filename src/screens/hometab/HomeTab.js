@@ -187,25 +187,10 @@ const HomeTab = () => {
               justifyContent: "space-between",
               width: "90%",
               alignSelf: "center",
-              marginVertical: "5%",
+              marginVertical: "1%",
             }}
           >
-            {popularCategoriesTab.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => handleTab(item.title)}
-              >
-                <Text
-                  style={
-                    popularCourseTab === item.title
-                      ? styles.actveTab
-                      : styles.inactiveTab
-                  }
-                >
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-            ))}
+
           </View>
           {renderPopularCourseTabs()}
           <View style={[styles.headAndBTN, { marginTop: "5%" }]}>
