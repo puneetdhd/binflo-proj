@@ -169,17 +169,8 @@ const HomeTab = () => {
               />
             </View>
           </View>
-          <View style={styles.headAndBTN}>
-            <Text style={globalStyles.headingFour}>Categories</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("categories")}>
-              <View style={globalStyles.miniButton}>
-                <Text style={globalStyles.miniButtonText}>View all</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={{ marginVertical: "5%", marginBottom: "7%" }}>
-            <CategoryCarousel data={homeTabCategories} />
-          </View>
+
+
           <View style={styles.headAndBTN}>
             <Text style={globalStyles.headingFour}>Popular Courses</Text>
             <TouchableOpacity
