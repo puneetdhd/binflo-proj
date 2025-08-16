@@ -16,10 +16,13 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
   const screenWidth = Dimensions.get("window").width;
   const itemWidth = screenWidth - 50;
   const flatListRef = useRef(null);
+  const theoryNavRef = useRef(null);
   const currentIndex = useRef(0);
   const globalStyles = useGlobalStyles();
-
   const theme = useContext(ThemeContext);
+
+  // State for selected theory filter
+  const [selectedTheory, setSelectedTheory] = useState('All');
 
   // Complete theory options with all details from SubscriptionPricing component
   const theoryOptions = {
@@ -139,6 +142,15 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
     }
   };
 
+  // Theory navigation items
+  const theoryNavItems = [
+    'All',
+    'Dutch Car Theory',
+    'Boating license 1 Theory',
+    'Motor Theory',
+    'Moped Theory'
+  ];
+
   // Create course cards for all theory options
   const createTheoryCards = () => {
     const theoryCourses = [];
@@ -220,10 +232,18 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
   // Combine original data with theory cards
   const allCourseData = [...data, ...createTheoryCards()];
 
+  // Filter data based on selected theory
+  const filteredCourseData = selectedTheory === 'All' 
+    ? allCourseData 
+    : allCourseData.filter(item => {
+        const courseDetails = getCourseDetails(item);
+        return courseDetails.theoryType === selectedTheory || item.theoryType === selectedTheory;
+      });
+
   useEffect(() => {
-    if (autoplay && allCourseData.length > 1) {
+    if (autoplay && filteredCourseData.length > 1) {
       const interval = setInterval(() => {
-        currentIndex.current = (currentIndex.current + 1) % allCourseData.length;
+        currentIndex.current = (currentIndex.current + 1) % filteredCourseData.length;
         flatListRef.current?.scrollToIndex({
           index: currentIndex.current,
           animated: true,
@@ -232,77 +252,112 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
 
       return () => clearInterval(interval);
     }
-  }, [autoplay, autoplayInterval, allCourseData.length]);
+  }, [autoplay, autoplayInterval, filteredCourseData.length]);
+
+  const handleTheorySelect = (theory) => {
+    setSelectedTheory(theory);
+    currentIndex.current = 0;
+    // Reset to first item when changing theory
+    if (flatListRef.current && filteredCourseData.length > 0) {
+      flatListRef.current.scrollToIndex({
+        index: 0,
+        animated: true,
+      });
+    }
+  };
+
+  const renderTheoryTab = ({ item }) => {
+    const isSelected = item === selectedTheory;
+    
+    return (
+      <TouchableOpacity
+        style={[
+          styles.theoryTab,
+          isSelected && styles.selectedTheoryTab
+        ]}
+        onPress={() => handleTheorySelect(item)}
+      >
+        <Text style={[
+          styles.theoryTabText,
+          isSelected && styles.selectedTheoryTabText
+        ]}>
+          {item}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   const renderItem = ({ item }) => {
     const courseDetails = getCourseDetails(item);
 
     return (
-      <TouchableOpacity style={[styles.slide, { width: itemWidth }]}>
-        {/* Image Block */}
-        <Image source={item.image} style={styles.image} />
-        
-        {/* All Details Below Image */}
-        <View style={styles.detailsContainer}>
-          {/* Header with Category and Save Icon */}
-          <View style={styles.headerRow}>
-            <View style={styles.categoryContainer}>
-              <Text style={styles.itemCategoryEmoji}>{courseDetails.emoji}</Text>
-              <Text style={globalStyles.redTextwithWeight}>
-                {item.theoryType ? item.theoryType : item.category}
-              </Text>
-            </View>
-            <SaveIcon />
-          </View>
-
-          {/* Course Title */}
-          <Text style={[
-            globalStyles.headingFive,
-            { fontWeight: "500", color: theme.black, marginBottom: 8 }
-          ]}>
-            {item.title}
-          </Text>
-
-          {/* Course Type */}
-          <Text style={[styles.courseTypeText, { color: courseDetails.color }]}>
-            {courseDetails.title}
-          </Text>
-
-          {/* First Line: Discount and Study Hours */}
-          <View style={styles.firstInfoLine}>
-            <View style={[styles.discountBadge, { backgroundColor: courseDetails.color }]}>
-              <Text style={styles.discountText}>{courseDetails.discount}</Text>
-            </View>
-            <Text style={styles.separator}>|</Text>
-            <Text style={styles.studyHours}>{item.std} Std</Text>
-            <Text style={styles.separator}>|</Text>
-            <Text style={styles.duration}>{courseDetails.duration}</Text>
-          </View>
-
-          {/* Features Description */}
-          <View style={styles.featuresContainer}>
-            {courseDetails.features.slice(0, 3).map((feature, index) => (
-              <View key={index} style={styles.featureRow}>
-                <View style={[styles.bullet, { backgroundColor: courseDetails.color }]} />
-                <Text style={styles.featureText} numberOfLines={1}>{feature}</Text>
+      <View style={[styles.slide, { width: itemWidth }]}>
+        <TouchableOpacity activeOpacity={0.8}>
+          {/* Image Block */}
+          <Image source={item.image} style={styles.image} />
+          
+          {/* All Details Below Image */}
+          <View style={styles.detailsContainer}>
+            {/* Header with Category and Save Icon */}
+            <View style={styles.headerRow}>
+              <View style={styles.categoryContainer}>
+                <Text style={styles.itemCategoryEmoji}>{courseDetails.emoji}</Text>
+                <Text style={globalStyles.redTextwithWeight}>
+                  {item.theoryType ? item.theoryType : item.category}
+                </Text>
               </View>
-            ))}
-            {courseDetails.features.length > 3 && (
-              <Text style={[styles.moreFeatures, { color: courseDetails.color }]}>
-                +{courseDetails.features.length - 3} more features
-              </Text>
-            )}
-          </View>
+              <SaveIcon />
+            </View>
 
-          {/* Pricing */}
-          <View style={styles.pricingContainer}>
-            <Text style={styles.originalPrice}>{courseDetails.originalPrice}</Text>
-            <Text style={[styles.currentPrice, { color: courseDetails.color }]}>
-              {courseDetails.fullPrice}
+            {/* Course Title */}
+            <Text style={[
+              globalStyles.headingFive,
+              { fontWeight: "500", color: theme.black, marginBottom: 8 }
+            ]}>
+              {item.title}
             </Text>
+
+            {/* Course Type */}
+            <Text style={[styles.courseTypeText, { color: courseDetails.color }]}>
+              {courseDetails.title}
+            </Text>
+
+            {/* First Line: Discount and Study Hours */}
+            <View style={styles.firstInfoLine}>
+              <View style={[styles.discountBadge, { backgroundColor: courseDetails.color }]}>
+                <Text style={styles.discountText}>{courseDetails.discount}</Text>
+              </View>
+              <Text style={styles.separator}>|</Text>
+              <Text style={styles.studyHours}>{item.std} Std</Text>
+              <Text style={styles.separator}>|</Text>
+              <Text style={styles.duration}>{courseDetails.duration}</Text>
+            </View>
+
+            {/* Features Description */}
+            <View style={styles.featuresContainer}>
+              {courseDetails.features.slice(0, 3).map((feature, index) => (
+                <View key={index} style={styles.featureRow}>
+                  <View style={[styles.bullet, { backgroundColor: courseDetails.color }]} />
+                  <Text style={styles.featureText} numberOfLines={1}>{feature}</Text>
+                </View>
+              ))}
+              {courseDetails.features.length > 3 && (
+                <Text style={[styles.moreFeatures, { color: courseDetails.color }]}>
+                  +{courseDetails.features.length - 3} more features
+                </Text>
+              )}
+            </View>
+
+            {/* Pricing */}
+            <View style={styles.pricingContainer}>
+              <Text style={styles.originalPrice}>{courseDetails.originalPrice}</Text>
+              <Text style={[styles.currentPrice, { color: courseDetails.color }]}>
+                {courseDetails.fullPrice}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -315,21 +370,29 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
     }, 100);
   };
 
-  const onCategoryScrollToIndexFailed = (info) => {
-    setTimeout(() => {
-      flatListRef.current?.scrollToIndex({
-        index: info.index,
-        animated: true,
-      });
-    }, 100);
-  };
-
   return (
     <View style={styles.container}>
+      {/* Theory Navigation */}
+      <View style={styles.theoryNavContainer}>
+        <FlatList
+          ref={theoryNavRef}
+          data={theoryNavItems}
+          renderItem={renderTheoryTab}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item}
+          contentContainerStyle={styles.theoryNavContent}
+          scrollEnabled={true}
+          nestedScrollEnabled={true}
+          bounces={false}
+          decelerationRate="fast"
+        />
+      </View>
+
       {/* Course Cards FlatList */}
       <FlatList
         ref={flatListRef}
-        data={allCourseData}
+        data={filteredCourseData}
         renderItem={renderItem}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -339,6 +402,8 @@ const PopularCourseAllTabCarousal = ({ data = [], autoplay = true, autoplayInter
         keyExtractor={(item, index) => `course-${item.id || index}`}
         contentContainerStyle={styles.flatListContent}
         onScrollToIndexFailed={onScrollToIndexFailed}
+        scrollEnabled={true}
+        nestedScrollEnabled={true}
         getItemLayout={(data, index) => ({
           length: itemWidth + 10,
           offset: (itemWidth + 10) * index,
@@ -353,6 +418,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  // Theory Navigation Styles
+  theoryNavContainer: {
+    marginBottom: 15,
+    height: 50,
+  },
+  theoryNavContent: {
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  theoryTab: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginRight: 15,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    minWidth: 120,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  selectedTheoryTab: {
+    backgroundColor: '#DC2626',
+    borderColor: '#DC2626',
+  },
+  theoryTabText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+  selectedTheoryTabText: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  // Existing Course Card Styles
   flatListContent: {
     paddingHorizontal: 10,
   },
