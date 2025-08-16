@@ -93,7 +93,6 @@ const RegisterScreen = () => {
       <View style={styles.contents} >
         <Logo />
         
-        {/* Added spacing container */}
         <View style={styles.spacer} />
         
         <View style={styles.childContents}>
