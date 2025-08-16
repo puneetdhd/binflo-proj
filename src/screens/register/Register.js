@@ -271,9 +271,8 @@ const styles = StyleSheet.create({
   childContents: {
     width: "100%",
   },
-  // Added spacer style
   spacer: {
-    height: 60, // Adjust this value to increase/decrease space
+    height: 60, 
   },
   formContainer: {
     marginTop: 30,
