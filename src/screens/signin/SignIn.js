@@ -453,6 +453,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     alignItems: "center",
   },
+  spacer: {
+    height: 60, 
+  },
   icons: {
     flexDirection: "row",
     alignItems: "center",
